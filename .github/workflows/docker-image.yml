@@ -48,17 +48,23 @@ jobs:
       run: |
         echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "New version: $NEW_VERSION-------"
-
-    # - name: Build Docker Image
-    #   run: |
-    #     docker build -t fgil35/graphq-docker:0.0.2 .
-    #     docker build -t fgil35/graphq-docker:latest .
         
-    # - name: Push Docker Image
-    #   run: |
-    #     docker push fgil35/graphq-docker:0.0.2
-    #     docker push fgil35/graphq-docker:latest
+
+    - name: Build Docker Image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker build -t fgil35/graphq-docker:$NEW_VERSION .
+        docker build -t fgil35/graphq-docker:latest .
+        echo "New version: $NEW_VERSION"
+        
+    - name: Push Docker Image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker push fgil35/graphq-docker:$NEW_VERSION
+        docker push fgil35/graphq-docker:latest
+        echo "New version: $NEW_VERSION"
         
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
