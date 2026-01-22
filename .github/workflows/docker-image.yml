@@ -29,9 +29,11 @@ jobs:
     - name: Build Docker Image
       run: |
         docker build -t fgil35/graphq-docker:0.0.2 .
+        docker build -t fgil35/graphq-docker:latest .
         
     - name: Push Docker Image
       run: |
-        docker push fgil35/graphq-docker:0.0.3
+        docker push fgil35/graphq-docker:0.0.2
+        docker push fgil35/graphq-docker:latest
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
