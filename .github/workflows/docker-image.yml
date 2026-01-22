@@ -18,12 +18,25 @@ jobs:
       with:
         fetch-depth: 0
         
+    # - name: Git Semantic Version
+    #   uses: PaulHatch/semantic-version@v4.0.3
+    #   with:
+    #     major_pattern: "major:"
+    #     minor_pattern: "feat:"
+    #     format: "${major}.${minor}.${patch}-prerelease${increment}"
+    #   id: version
+
     - name: Git Semantic Version
       uses: PaulHatch/semantic-version@v4.0.3
       with:
         major_pattern: "major:"
         minor_pattern: "feat:"
+        patch_pattern: "fix:"
         format: "${major}.${minor}.${patch}-prerelease${increment}"
+        tag_prefix: "v"  # Si usas tags como v1.0.0
+        namespace: ""    # Namespace para tags
+        bump_each_commit: true
+        search_commit_body: false  # Solo busca en el título del commit
       id: version
       
     - name: Docker login
@@ -34,7 +47,7 @@ jobs:
       run: |
         echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "New version: -----$NEW_VERSION-------"
+        echo "New version: $NEW_VERSION-------"
 
     # - name: Build Docker Image
     #   run: |
