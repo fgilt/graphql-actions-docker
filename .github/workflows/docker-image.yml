@@ -32,7 +32,8 @@ jobs:
         major_pattern: "major:"
         minor_pattern: "feat:"
         patch_pattern: "fix:"
-        format: "${major}.${minor}.${patch}-prerelease${increment}"
+        format: "V-${major}.${minor}.${patch}"
+        # format: "${major}.${minor}.${patch}-prerelease${increment}"
         tag_prefix: "v"  # Si usas tags como v1.0.0
         namespace: ""    # Namespace para tags
         bump_each_commit: true
