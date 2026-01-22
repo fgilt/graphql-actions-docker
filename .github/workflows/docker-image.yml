@@ -23,7 +23,7 @@ jobs:
       with:
         major_pattem: "major:"
         minor_pattem: "feat:"
-        format: "${major}.${minor}.${patch}-prerelease${increment}"
+        format: "${major_pattem}.${minor_pattem}.${patch}-prerelease${increment}"
       id: version
       
     - name: Docker login
